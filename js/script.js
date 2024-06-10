@@ -33,3 +33,18 @@ function operate(num1, num2, operator) {
 }
 
 console.log(operate(num1, num2, operator));
+
+let digits = document.querySelectorAll(".digit");
+let operators = document.querySelectorAll(".operator");
+
+digits.forEach(digit => {
+    digit.addEventListener("click", () => {
+        console.log(digit.textContent);
+    }) 
+})
+
+operators.forEach(operator => {
+    operator.addEventListener("click", () => {
+        console.log(operator.textContent);
+    })
+})

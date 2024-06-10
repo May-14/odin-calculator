@@ -43,7 +43,7 @@ span {
     width: 418px;
 }
 
-.operator, .digit, .clear span {
+.operator, .digit, .clear span, .equal {
     width: 82px;
     height: 82px;
 }
