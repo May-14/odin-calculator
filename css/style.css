@@ -71,3 +71,7 @@ span {
     width: 418px;
     background-color: lightblue;
 }
+
+.display span{
+    color: rgb(176, 209, 221);
+}

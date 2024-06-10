@@ -15,9 +15,9 @@ function divide(num1, num2) {
 }
 
 
-let num1 = 0;
+let num1 = "";
 let operator = "+";
-let num2 = 0;
+let num2 = "";
 
 function operate(num1, num2, operator) {
     switch (operator) {
@@ -36,10 +36,14 @@ console.log(operate(num1, num2, operator));
 
 let digits = document.querySelectorAll(".digit");
 let operators = document.querySelectorAll(".operator");
+let backArrow = document.querySelector(".back-arrow");
+let display = document.querySelector(".display span");
 
 digits.forEach(digit => {
     digit.addEventListener("click", () => {
-        console.log(digit.textContent);
+        display.style.color = "white";
+        num1 += digit.textContent;
+        display.textContent = num1;
     }) 
 })
 
@@ -47,4 +51,17 @@ operators.forEach(operator => {
     operator.addEventListener("click", () => {
         console.log(operator.textContent);
     })
+})
+
+backArrow.addEventListener("click", () => {
+    if (num1.length === 1) {
+        num1 = "";
+        display.style.color = "rgb(176, 209, 221)";
+        display.textContent = "0000000000";
+    } else {
+        let arrayOfNum1 = num1.split("");
+        arrayOfNum1.pop();
+        num1 = arrayOfNum1.join("");
+        display.textContent = num1;
+    }
 })
