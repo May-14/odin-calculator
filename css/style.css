@@ -57,7 +57,7 @@ span {
 }
 
 
-.operator {
+.operator, .clear .back-arrow  {
     background-color: orange;
 }
 
