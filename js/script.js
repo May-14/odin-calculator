@@ -82,7 +82,7 @@ operators.forEach(operator => {
 
 backArrow.addEventListener("click", () => {
     if (numberBeingEntered === "num1") {
-        if (num1.length === 1) {
+        if (num1.length < 2) {
             num1 = "";
             display.style.color = "rgb(176, 209, 221)";
             display.textContent = "0000000000";
@@ -93,7 +93,7 @@ backArrow.addEventListener("click", () => {
             display.textContent = num1;
         }
     } else {
-        if (num2.length === 1) {
+        if (num2.length < 2) {
             num2 = "";
             display.style.color = "rgb(176, 209, 221)";
             display.textContent = "0000000000";
