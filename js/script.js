@@ -11,6 +11,9 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
+    if (num2 === 0) {
+        return "Error";
+    }
     return num1 / num2;
 }
 
@@ -43,17 +46,28 @@ let operationToDo = "add";
 let numberBeingEntered = "num1";
 let equalSign = document.querySelector(".equal");
 let clearButton = document.querySelector(".clear-button");
+let decimal = document.querySelector(".decimal")
 
 digits.forEach(digit => {
     digit.addEventListener("click", () => {
-        if (numberBeingEntered === "num1") {
-            display.style.color = "white";
-            num1 += digit.textContent;
-            display.textContent = num1;
+        if (digit.textContent === "." && (numberBeingEntered === "num1" ? num1.includes(".") : num2.includes("."))) {
+
         } else {
-            display.style.color = "white";
-            num2 += digit.textContent;
-            display.textContent = num2;
+            if(digit.textContent === "." && num1.length === 0 ){
+                num1 = "0";
+            }
+            if (numberBeingEntered === "num1") {
+                display.style.color = "white";
+                num1 += digit.textContent;
+                display.textContent = num1;
+            } else {
+                if( digit.textContent === "." && num2.length === 0 ){
+                    num2 = 0;
+                }
+                display.style.color = "white";
+                num2 += digit.textContent;
+                display.textContent = num2;
+            }
         }
     }) 
 })
@@ -92,7 +106,7 @@ backArrow.addEventListener("click", () => {
             num1 = arrayOfNum1.join("");
             display.textContent = num1;
         }
-    } else {
+    } else if (numberBeingEntered === "num2") {
         if (num2.length < 2) {
             num2 = "";
             display.style.color = "rgb(176, 209, 221)";
@@ -107,23 +121,34 @@ backArrow.addEventListener("click", () => {
 })
 
 equalSign.addEventListener("click", () => {
-    num1 = +num1;
-    num2 = +num2;
-    switch (operationToDo) {
-        case "addition":
-            answer = add(num1, num2);
-            break;
-        case "subtraction":
-            answer = subtract(num1, num2);
-            break;
-        case "multiplication":
-            answer = multiply(num1, num2);
-            break;
-        case "division":
-            answer = divide(num1, num2);
-            break;
+    if (numberBeingEntered === "num2") {
+        num1 = +num1;
+        num2 = +num2;
+        switch (operationToDo) {
+            case "addition":
+                answer = add(num1, num2);
+                break;
+            case "subtraction":
+                answer = subtract(num1, num2);
+                break;
+            case "multiplication":
+                answer = multiply(num1, num2);
+                break;
+            case "division":
+                answer = divide(num1, num2);
+                break;
+        }
+        display.textContent = answer;
+        if (answer === "Error") {
+            answer = 0;
+        }
+        num1 = answer;
+        operator = "+";
+        num2 = "";
+        answer = "0";
+        operationToDo = "add";
+        numberBeingEntered = "showing answer";
     }
-    display.textContent = answer;
 })
 
 clearButton.addEventListener("click", () => {
