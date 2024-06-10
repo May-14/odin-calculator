@@ -42,6 +42,7 @@ let display = document.querySelector(".display span");
 let operationToDo = "add";
 let numberBeingEntered = "num1";
 let equalSign = document.querySelector(".equal");
+let clearButton = document.querySelector(".clear-button");
 
 digits.forEach(digit => {
     digit.addEventListener("click", () => {
@@ -123,4 +124,15 @@ equalSign.addEventListener("click", () => {
             break;
     }
     display.textContent = answer;
+})
+
+clearButton.addEventListener("click", () => {
+    num1 = "";
+    operator = "+";
+    num2 = "";
+    answer = "0";
+    operationToDo = "add";
+    numberBeingEntered = "num1";
+    display.style.color = "rgb(176, 209, 221)";
+    display.textContent = "0000000000";
 })
