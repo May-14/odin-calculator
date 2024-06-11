@@ -69,3 +69,9 @@ digits.forEach(digit => {
     })
 })
 
+clearButton.addEventListener("click", () => {
+    completeExpression = "";
+    display.textContent = "0000000000";
+    display.style.color = "rgb(176, 209, 221)";
+})
+
