@@ -45,7 +45,7 @@ function operate(num1, num2, operator) {
 
 let digits = document.querySelectorAll(".digit");
 let operators = document.querySelectorAll(".operator");
-let backArrow = document.querySelector(".back-arrow");
+let backspaceButton = document.querySelector(".backspace-button");
 let display = document.querySelector(".display span");
 let operationToDo = "add";
 let numberBeingEntered = "num1";
@@ -69,9 +69,48 @@ digits.forEach(digit => {
     })
 })
 
-clearButton.addEventListener("click", () => {
+function clear() {
     completeExpression = "";
     display.textContent = "0000000000";
     display.style.color = "rgb(176, 209, 221)";
+}
+clearButton.addEventListener("click", clear)
+
+backspaceButton.addEventListener("click", () => {
+    if (completeExpression.length > 1) {
+        completeExpression = completeExpression.slice(0, -1);
+        display.textContent = completeExpression;
+        if (completeExpression.length < 10) {
+            display.textContent = completeExpression;
+        } else {
+            display.textContent = "←" + completeExpression.slice(-9);
+        }
+    } else {
+        clear();
+    }
 })
 
+operators.forEach(operator => {
+    operator.addEventListener("click", () => {
+        if (completeExpression[completeExpression.length-1] === "+" ||
+        completeExpression[completeExpression.length-1] === "-" || 
+        completeExpression[completeExpression.length-1] === "x" || 
+        completeExpression[completeExpression.length-1] === "÷" 
+        ) {
+            completeExpression = completeExpression.slice(0, -1)
+        }
+        if (completeExpression.includes("-") || 
+        completeExpression.includes("+") || 
+        completeExpression.includes("x") || 
+        completeExpression.includes("÷")) {
+
+        } else {
+            completeExpression += operator.textContent;
+            if (completeExpression.length < 10) {
+                display.textContent = completeExpression;
+            } else {
+                display.textContent = "←" + completeExpression.slice(-9);
+            }
+        }
+    })
+})

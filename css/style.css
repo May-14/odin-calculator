@@ -56,14 +56,14 @@ span {
     background-color: lightcoral;
 }
 
-.answer {
+.answer, .backspace-button {
     font-size: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.operator, .clear .back-arrow  {
+.operator, .clear .back-arrow, .backspace-button  {
     background-color: rgb(255, 165, 0);
 }
 
