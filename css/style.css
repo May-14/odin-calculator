@@ -43,7 +43,7 @@ span {
     width: 418px;
 }
 
-.operator, .digit, .clear span, .equal {
+.operator, .digit, .clear span, .equal, .answer {
     width: 82px;
     height: 82px;
 }
@@ -52,16 +52,22 @@ span {
     background-color: gray;
 }
 
-.clear span {
+.clear-button {
     background-color: lightcoral;
 }
 
+.answer {
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .operator, .clear .back-arrow  {
     background-color: orange;
 }
 
-.equal {
+.equal, .answer {
     background-color: blue;
 }
 

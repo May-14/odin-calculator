@@ -1,3 +1,8 @@
+// add ans button, and a more reactive display.
+// repeating calculations (if i click 2 + 2, then click equals it will give me 4, if i click equal again it should give me six.) 
+// Add more indications. Like for example color differently the operator being used. add keywords like ans and stuff like that.
+
+
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -58,14 +63,18 @@ digits.forEach(digit => {
             }
             if (numberBeingEntered === "num1") {
                 display.style.color = "white";
-                num1 += digit.textContent;
+                if (num1.length < 10) {
+                    num1 += digit.textContent;
+                }
                 display.textContent = num1;
             } else {
                 if( digit.textContent === "." && num2.length === 0 ){
                     num2 = 0;
                 }
                 display.style.color = "white";
-                num2 += digit.textContent;
+                if (num2.length < 10) {
+                    num2 += digit.textContent;
+                }
                 display.textContent = num2;
             }
         }
@@ -88,6 +97,7 @@ operators.forEach(operator => {
                 operationToDo = "multiplication"
                 break;
         }
+        num2 = "";
         display.textContent = "0000000000";
         display.style.color = "rgb(176, 209, 221)";
         numberBeingEntered = "num2";
@@ -120,7 +130,7 @@ backArrow.addEventListener("click", () => {
     }
 })
 
-equalSign.addEventListener("click", () => {
+function calculateResult() {
     if (numberBeingEntered === "num2") {
         num1 = +num1;
         num2 = +num2;
@@ -138,18 +148,31 @@ equalSign.addEventListener("click", () => {
                 answer = divide(num1, num2);
                 break;
         }
+        answerInStringForm = answer.toString();
+        if (answerInStringForm.length > 10) {
+            answerInStringForm = answerInStringForm.split("");
+            answerInStringForm.splice(11,answerInStringForm.length - 11);
+            let lastNumber = answerInStringForm.pop();
+            answerInStringForm = answerInStringForm.join("");
+            console.log(answerInStringForm);
+            if (lastNumber > 4) {
+                answer = +answerInStringForm + 0.00000001
+            } else {
+                answer = +answerInStringForm;
+            }
+        }
         display.textContent = answer;
         if (answer === "Error") {
             answer = 0;
         }
         num1 = answer;
-        operator = "+";
+        answer = "";
         num2 = "";
-        answer = "0";
-        operationToDo = "add";
-        numberBeingEntered = "showing answer";
+        numberBeingEntered = "num2";
     }
-})
+}
+
+equalSign.addEventListener("click", calculateResult)
 
 clearButton.addEventListener("click", () => {
     num1 = "";
