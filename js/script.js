@@ -27,6 +27,7 @@ let num1 = "";
 let operator = "";
 let num2 = "";
 let answer = "";
+let completeExpression = "";
 
 function operate(num1, num2, operator) {
     switch (operator) {
@@ -55,4 +56,16 @@ let additionSymbol = document.querySelector(".addition");
 let subtractionSymbol = document.querySelector(".subtraction");
 let divisionSymbol = document.querySelector(".division");
 let multiplicationSymbol = document.querySelector(".multiplication");
+
+digits.forEach(digit => {
+    digit.addEventListener("click", () => {
+        display.style.color = "white";
+        completeExpression += digit.textContent;
+        if (completeExpression.length < 10) {
+            display.textContent = completeExpression;
+        } else {
+            display.textContent = "←" + completeExpression.slice(-9);
+        }
+    })
+})
 
