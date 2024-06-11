@@ -4,7 +4,7 @@
 
 
 function add(num1, num2) {
-    return num1 + num2;
+    return +num1 + +num2;
 }
 
 function subtract(num1, num2) {
@@ -47,8 +47,7 @@ let digits = document.querySelectorAll(".digit");
 let operators = document.querySelectorAll(".operator");
 let backspaceButton = document.querySelector(".backspace-button");
 let display = document.querySelector(".display span");
-let operationToDo = "add";
-let numberBeingEntered = "num1";
+let operationToDo = "";
 let equalSign = document.querySelector(".equal");
 let clearButton = document.querySelector(".clear-button");
 let decimal = document.querySelector(".decimal")
@@ -113,4 +112,44 @@ operators.forEach(operator => {
             }
         }
     })
+})
+
+equalSign.addEventListener("click", () => {
+    if (completeExpression.includes("-")) {
+        let expressionToEvaluate = completeExpression.split("-");
+        answer = subtract(expressionToEvaluate[0], expressionToEvaluate[1])
+    } else if (completeExpression.includes("+")){
+        let expressionToEvaluate = completeExpression.split("+");
+        answer = add(expressionToEvaluate[0], expressionToEvaluate[1])
+    } else if (completeExpression.includes("x")) {
+        let expressionToEvaluate = completeExpression.split("x");
+        answer = multiply(expressionToEvaluate[0], expressionToEvaluate[1])
+    } else if (completeExpression.includes("÷")) {
+        let expressionToEvaluate = completeExpression.split("÷");
+        answer = divide(expressionToEvaluate[0], expressionToEvaluate[1])
+    } else {
+        answer = completeExpression;
+    }
+    if (answer.toString().length > 10) {
+        display.textContent = answer.toString().slice(0, 9) + "→";
+    } else {
+        display.textContent = answer;
+    }
+    if (answer.toString().includes(".")) {
+        let numberAndDecimalArray = answer.toString().split(".");
+        if (numberAndDecimalArray[1].length > 8) {
+            if (+numberAndDecimalArray[1][7] > 4) {
+                numberAndDecimalArray[1] = +numberAndDecimalArray[1].slice(0,8) + 1;
+            } else {
+                numberAndDecimalArray[1] = numberAndDecimalArray[1].slice(0, 8);
+            }
+            answer = +numberAndDecimalArray.join(".");
+            if (answer.toString().length > 10) {
+                display.textContent = answer.toString().slice(0, 9) + "→";
+            } else {
+                display.textContent = answer;
+            }
+        }
+    }
+    completeExpression = "";
 })
