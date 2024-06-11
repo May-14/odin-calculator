@@ -64,7 +64,7 @@ span {
 }
 
 .operator, .clear .back-arrow  {
-    background-color: orange;
+    background-color: rgb(255, 165, 0);
 }
 
 .equal, .answer {

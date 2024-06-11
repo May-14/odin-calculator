@@ -24,9 +24,9 @@ function divide(num1, num2) {
 
 
 let num1 = "";
-let operator = "+";
+let operator = "";
 let num2 = "";
-let answer = "0";
+let answer = "";
 
 function operate(num1, num2, operator) {
     switch (operator) {
@@ -41,7 +41,6 @@ function operate(num1, num2, operator) {
     }
 }
 
-console.log(operate(num1, num2, operator));
 
 let digits = document.querySelectorAll(".digit");
 let operators = document.querySelectorAll(".operator");
@@ -52,135 +51,8 @@ let numberBeingEntered = "num1";
 let equalSign = document.querySelector(".equal");
 let clearButton = document.querySelector(".clear-button");
 let decimal = document.querySelector(".decimal")
+let additionSymbol = document.querySelector(".addition");
+let subtractionSymbol = document.querySelector(".subtraction");
+let divisionSymbol = document.querySelector(".division");
+let multiplicationSymbol = document.querySelector(".multiplication");
 
-digits.forEach(digit => {
-    digit.addEventListener("click", () => {
-        if (digit.textContent === "." && (numberBeingEntered === "num1" ? num1.includes(".") : num2.includes("."))) {
-
-        } else {
-            if(digit.textContent === "." && num1.length === 0 ){
-                num1 = "0";
-            }
-            if (numberBeingEntered === "num1") {
-                display.style.color = "white";
-                if (num1.length < 10) {
-                    num1 += digit.textContent;
-                }
-                display.textContent = num1;
-            } else {
-                if( digit.textContent === "." && num2.length === 0 ){
-                    num2 = 0;
-                }
-                display.style.color = "white";
-                if (num2.length < 10) {
-                    num2 += digit.textContent;
-                }
-                display.textContent = num2;
-            }
-        }
-    }) 
-})
-
-operators.forEach(operator => {
-    operator.addEventListener("click", () => {
-        switch (operator.textContent) {
-            case "+":
-                operationToDo = "addition"
-                break;
-            case "-":
-                operationToDo = "subtraction"
-                break;
-            case "÷":
-                operationToDo = "division"
-                break;
-            case "x":
-                operationToDo = "multiplication"
-                break;
-        }
-        num2 = "";
-        display.textContent = "0000000000";
-        display.style.color = "rgb(176, 209, 221)";
-        numberBeingEntered = "num2";
-    })
-})
-
-backArrow.addEventListener("click", () => {
-    if (numberBeingEntered === "num1") {
-        if (num1.length < 2) {
-            num1 = "";
-            display.style.color = "rgb(176, 209, 221)";
-            display.textContent = "0000000000";
-        } else {
-            let arrayOfNum1 = num1.split("");
-            arrayOfNum1.pop();
-            num1 = arrayOfNum1.join("");
-            display.textContent = num1;
-        }
-    } else if (numberBeingEntered === "num2") {
-        if (num2.length < 2) {
-            num2 = "";
-            display.style.color = "rgb(176, 209, 221)";
-            display.textContent = "0000000000";
-        } else {
-            let arrayOfNum2 = num2.split("");
-            arrayOfNum2.pop();
-            num2 = arrayOfNum2.join("");
-            display.textContent = num2;
-        }
-    }
-})
-
-function calculateResult() {
-    if (numberBeingEntered === "num2") {
-        num1 = +num1;
-        num2 = +num2;
-        switch (operationToDo) {
-            case "addition":
-                answer = add(num1, num2);
-                break;
-            case "subtraction":
-                answer = subtract(num1, num2);
-                break;
-            case "multiplication":
-                answer = multiply(num1, num2);
-                break;
-            case "division":
-                answer = divide(num1, num2);
-                break;
-        }
-        answerInStringForm = answer.toString();
-        if (answerInStringForm.length > 10) {
-            answerInStringForm = answerInStringForm.split("");
-            answerInStringForm.splice(11,answerInStringForm.length - 11);
-            let lastNumber = answerInStringForm.pop();
-            answerInStringForm = answerInStringForm.join("");
-            console.log(answerInStringForm);
-            if (lastNumber > 4) {
-                answer = +answerInStringForm + 0.00000001
-            } else {
-                answer = +answerInStringForm;
-            }
-        }
-        display.textContent = answer;
-        if (answer === "Error") {
-            answer = 0;
-        }
-        num1 = answer;
-        answer = "";
-        num2 = "";
-        numberBeingEntered = "num2";
-    }
-}
-
-equalSign.addEventListener("click", calculateResult)
-
-clearButton.addEventListener("click", () => {
-    num1 = "";
-    operator = "+";
-    num2 = "";
-    answer = "0";
-    operationToDo = "add";
-    numberBeingEntered = "num1";
-    display.style.color = "rgb(176, 209, 221)";
-    display.textContent = "0000000000";
-})
