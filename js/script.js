@@ -82,7 +82,9 @@ digits.forEach(digit => {
         }
         display.style.color = "white";
         if (digit.textContent !== ".") {
-            completeExpression += digit.textContent;
+            if (completeExpression[completeExpression.length -1] !== "s") {
+                completeExpression += digit.textContent;
+            }
         } else {
             if (completeExpression[completeExpression.length -1] !== "s") {
                 if (completeExpression.includes(".")) {
