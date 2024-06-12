@@ -1,4 +1,3 @@
-// give func to ans button
 // give func to decimal button
 // add arrows to see complete answer
 // add keyboard func
@@ -70,12 +69,55 @@ let answerButton = document.querySelector(".answer");
 
 digits.forEach(digit => {
     digit.addEventListener("click", () => {
+        if (digit.textContent === ".") {
+            if (completeExpression.length === 0) {
+                completeExpression = "0";
+            }  else if (completeExpression[completeExpression.length-1] === "+" ||
+            completeExpression[completeExpression.length-1] === "-" || 
+            completeExpression[completeExpression.length-1] === "x" || 
+            completeExpression[completeExpression.length-1] === "÷" 
+            ) {
+                completeExpression += "0";
+            }
+        }
         display.style.color = "white";
-        completeExpression += digit.textContent;
+        if (digit.textContent !== ".") {
+            completeExpression += digit.textContent;
+        } else {
+            if (completeExpression[completeExpression.length -1] !== "s") {
+                if (completeExpression.includes(".")) {
+                    if (completeExpression.includes("-")) {
+                        let expressionToEvaluate = completeExpression.split("-");
+                        if ((expressionToEvaluate[1].includes("."))) {
+                            completeExpression += digit.textContent;
+                        } 
+                    } else if (completeExpression.includes("+")){
+                        let expressionToEvaluate = completeExpression.split("+");
+                        if (!(expressionToEvaluate[1].includes("."))) {
+                            completeExpression += digit.textContent;
+                        } 
+                    } else if (completeExpression.includes("x")) {
+                        let expressionToEvaluate = completeExpression.split("x");
+                        if (!(expressionToEvaluate[1].includes("."))) {
+                            completeExpression += digit.textContent;
+                        } 
+                    } else if (completeExpression.includes("÷")) {
+                        let expressionToEvaluate = completeExpression.split("÷");
+                        if (!(expressionToEvaluate[1].includes("."))) {
+                            completeExpression += digit.textContent;
+                        } 
+                    } else {
+    
+                    }
+                } else {
+                    completeExpression += ".";
+                }
+            }
+        }
         if (completeExpression.length < 10) {
             display.textContent = completeExpression;
         } else {
-            display.textContent = "←" + completeExpression.slice(-9);
+            display.textContent = "←" + completeExpression.slice(-8);
         }
     })
 })
@@ -98,7 +140,7 @@ backspaceButton.addEventListener("click", () => {
         if (completeExpression.length < 10) {
             display.textContent = completeExpression;
         } else {
-            display.textContent = "←" + completeExpression.slice(-9);
+            display.textContent = "←" + completeExpression.slice(-8);
         }
     } else {
         clear();
@@ -133,14 +175,18 @@ operators.forEach(operator => {
             ) {
                 calculate();
                 completeExpression = "ans" + operator.textContent;
-                display.textContent = completeExpression;
+                if (completeExpression.length < 10) {
+                    display.textContent = completeExpression;
+                } else {
+                    display.textContent = "←" + completeExpression.slice(-8);
+                }
             }
         } else {
             completeExpression += operator.textContent;
             if (completeExpression.length < 10) {
                 display.textContent = completeExpression;
             } else {
-                display.textContent = "←" + completeExpression.slice(-9);
+                display.textContent = "←" + completeExpression.slice(-8);
             }
         }
     })
@@ -199,7 +245,7 @@ answerButton.addEventListener("click", () => {
             if (completeExpression.length < 10) {
                 display.textContent = completeExpression;
             } else {
-                display.textContent = "←" + completeExpression.slice(-9);
+                display.textContent = "←" + completeExpression.slice(-8);
             }
         }
     } else if (completeExpression[completeExpression.length-1] === "+" ||
@@ -212,7 +258,7 @@ answerButton.addEventListener("click", () => {
         if (completeExpression.length < 10) {
             display.textContent = completeExpression;
         } else {
-            display.textContent = "←" + completeExpression.slice(-9);
+            display.textContent = "←" + completeExpression.slice(-8);
         }
     }
 })
