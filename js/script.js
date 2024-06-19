@@ -1,6 +1,6 @@
-// give func to decimal button
 // add arrows to see complete answer
 // add keyboard func
+// add negative numbers
 
 
 function add(num1, num2) {
@@ -50,9 +50,9 @@ function divide(num1, num2) {
 let num1 = "";
 let operator = "";
 let num2 = "";
-let answer = "";
+let answer = 0;
 let completeExpression = "";
-
+let possibleOperators = ["+","-","x","÷"];
 let digits = document.querySelectorAll(".digit");
 let operators = document.querySelectorAll(".operator");
 let backspaceButton = document.querySelector(".backspace-button");
@@ -66,6 +66,7 @@ let subtractionSymbol = document.querySelector(".subtraction");
 let divisionSymbol = document.querySelector(".division");
 let multiplicationSymbol = document.querySelector(".multiplication");
 let answerButton = document.querySelector(".answer");
+// let positiveNegativeButton = document.querySelector(".positive-negative");
 
 digits.forEach(digit => {
     digit.addEventListener("click", () => {
@@ -128,7 +129,7 @@ function clear() {
     completeExpression = "";
     display.textContent = "0000000000";
     display.style.color = "rgb(176, 209, 221)";
-    answer = "";
+    answer = 0;
 }
 clearButton.addEventListener("click", clear)
 
@@ -208,7 +209,13 @@ function calculate() {
         let expressionToEvaluate = completeExpression.split("÷");
         answer = divide(expressionToEvaluate[0], expressionToEvaluate[1])
     } else {
-        answer = completeExpression;
+        if (completeExpression !== "") {
+            if (completeExpression === "ans") {
+                
+            } else {
+                answer = completeExpression;
+            }
+        }
     }
     if (answer.toString().length > 10) {
         display.textContent = answer.toString().slice(0, 9) + "→";
@@ -229,6 +236,14 @@ function calculate() {
             } else {
                 display.textContent = answer;
             }
+        }
+    }
+    if (display.textContent === "") {
+        if (completeExpression === "") {
+            display.textContent = "0000000000";
+            display.style.color = "rgb(176, 209, 221)";
+        } else {
+            display.textContent = completeExpression;
         }
     }
     completeExpression = "";
@@ -264,3 +279,4 @@ answerButton.addEventListener("click", () => {
         }
     }
 })
+
